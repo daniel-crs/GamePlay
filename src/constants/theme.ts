@@ -7,6 +7,10 @@ export const theme = {
     heading: '#DDE3F0',
     title: '#FFFFFF',
     primary: '#E51C44',
+    highlight: '#ABB1CC',
+    on: '#32BD50',
+    line: '#1B2565',
+    card: '#1B2565',
   },
   fonts: {
     title700: 'Rajdhani_700Bold',

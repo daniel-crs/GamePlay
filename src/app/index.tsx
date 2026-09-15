@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -9,6 +10,8 @@ import stripesImg from '../../assets/faixas_diagonais.png';
 import illustrationImg from '../../assets/lisin_bg_img.png';
 
 export default function LoginScreen() {
+  const router = useRouter();
+
   return (
     <Background>
       <SafeAreaView style={styles.safeArea}>
@@ -29,7 +32,7 @@ export default function LoginScreen() {
             favoritos com seus amigos
           </Text>
 
-          <Button />
+          <Button onPress={() => router.replace('/pages/Home')} />
         </View>
       </SafeAreaView>
     </Background>

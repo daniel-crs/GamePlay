@@ -1,4 +1,4 @@
-import { Pressable, PressableProps, StyleSheet, Text, View } from 'react-native';
+import { Pressable, PressableProps, StyleProp, StyleSheet, Text, View } from 'react-native';
 
 import { DiscordIcon } from '@/components/DiscordIcon';
 import { theme } from '@/constants/theme';
@@ -14,8 +14,8 @@ export function Button({
 }: ButtonProps) {
   return (
     <Pressable
-      style={({ pressed }) => [styles.container, pressed && styles.pressed, style]}
-      {...rest}
+      style={({ pressed }) => [styles.container, pressed && styles.pressed, style as StyleProp<StyleSheet.ViewStyle>]}
+      {...(rest as any)}
     >
       <View style={styles.content}>
         <DiscordIcon />
