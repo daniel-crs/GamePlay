@@ -9,7 +9,7 @@ import funIcon from '../../assets/slider/Diversao.png';
 import duelIcon from '../../assets/slider/Duelo.png';
 import rankedIcon from '../../assets/slider/Ranqueada.png';
 
-export type CategoryId = 'ranked' | 'duel' | 'fun';
+export type CategoryId = 'ranked' | 'duel' | 'fun' | 'ranked2' | 'duel2' | 'fun2';
 
 export type Category = {
   id: CategoryId;
@@ -45,6 +45,21 @@ export const categories: Category[] = [
     title: 'Diversão',
     icon: funIcon,
   },
+  {
+    id: 'ranked2',
+    title: 'Ranqueada 2',
+    icon: rankedIcon,
+  },
+  {
+    id: 'duel2',
+    title: 'Duelo 1x1 2',
+    icon: duelIcon,
+  },
+  {
+    id: 'fun2',
+    title: 'Diversão 2',
+    icon: funIcon,
+  }
 ];
 
 export const matches: Match[] = [
@@ -101,5 +116,32 @@ export const matches: Match[] = [
     categoryId: 'duel',
     role: 'Visitante',
     icon: lolIcon,
+  },
+  {
+    id: '7',
+    title: 'Lendários',
+    game: 'LoL',
+    date: '18/06 às 21:00h',
+    categoryId: 'ranked',
+    role: 'Anfitrião',
+    icon: lolIcon,
+  },
+  {
+    id: '8',
+    title: 'Yeah, boy',
+    game: 'Red Dead',
+    date: '23/06 às 19:00h',
+    categoryId: 'fun',
+    role: 'Visitante',
+    icon: redDeadIcon,
+  },
+  {
+    id: '9',
+    title: 'Rumo ao topo',
+    game: 'CS:GO',
+    date: '20/06 às 09:00h',
+    categoryId: 'duel',
+    role: 'Anfitrião',
+    icon: csGoIcon,
   },
 ];
