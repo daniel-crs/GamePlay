@@ -1,4 +1,4 @@
-import Svg, { ClipPath, Defs, G, Path, Rect } from 'react-native-svg';
+import Svg, { ClipPath, Defs, G, Path, Rect } from "react-native-svg";
 
 type DiscordIconProps = {
   width?: number;
@@ -7,9 +7,9 @@ type DiscordIconProps = {
 };
 
 export function DiscordIcon({
-  width = 24,
+  width = 16,
   height = 18,
-  color = '#FFFFFF',
+  color = "#FFFFFF",
 }: DiscordIconProps) {
   return (
     <Svg width={width} height={height} viewBox="0 0 24 18" fill="none">
