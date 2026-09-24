@@ -1,9 +1,12 @@
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 
 import { Background } from '@/components/Background';
+import { SliderOptions } from '@/components/SliderOptions';
+import { categories, CategoryId } from '@/constants/home';
 import { theme } from '@/constants/theme';
 
 function BackIcon() {
@@ -22,6 +25,7 @@ function BackIcon() {
 
 export default function AgendarPartidaScreen() {
   const router = useRouter();
+  const [selectedCategoryId, setSelectedCategoryId] = useState<CategoryId | null>(null);
 
   return (
     <Background>
@@ -39,6 +43,16 @@ export default function AgendarPartidaScreen() {
           <Text style={styles.title}>Agendar partida</Text>
 
           <View style={styles.headerSpacer} />
+        </View>
+
+        <Text style={styles.sectionTitle}>Categoria</Text>
+
+        <View style={styles.slider}>
+          <SliderOptions
+            categories={categories}
+            selectedId={selectedCategoryId}
+            onSelect={setSelectedCategoryId}
+          />
         </View>
       </SafeAreaView>
     </Background>
@@ -73,5 +87,16 @@ const styles = StyleSheet.create({
   },
   headerSpacer: {
     width: 40,
+  },
+  sectionTitle: {
+    fontFamily: theme.fonts.title700,
+    color: theme.colors.heading,
+    fontSize: 18,
+    paddingHorizontal: 24,
+    marginTop: 32,
+    marginBottom: 12,
+  },
+  slider: {
+    minHeight: 120,
   },
 });
