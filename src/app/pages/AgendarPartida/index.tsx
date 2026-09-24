@@ -23,6 +23,20 @@ function BackIcon() {
   );
 }
 
+function ChevronDownIcon() {
+  return (
+    <Svg width={18} height={18} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M6 9L12 15L18 9"
+        stroke={theme.colors.heading}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
 export default function AgendarPartidaScreen() {
   const router = useRouter();
   const [selectedCategoryId, setSelectedCategoryId] = useState<CategoryId | null>(null);
@@ -54,6 +68,16 @@ export default function AgendarPartidaScreen() {
             onSelect={setSelectedCategoryId}
           />
         </View>
+
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Selecione um servidor"
+          style={styles.serverSelect}
+        >
+          <View style={styles.serverIconPlaceholder} />
+          <Text style={styles.serverSelectText}>Selecione um servidor</Text>
+          <ChevronDownIcon />
+        </Pressable>
       </SafeAreaView>
     </Background>
   );
@@ -98,5 +122,29 @@ const styles = StyleSheet.create({
   },
   slider: {
     minHeight: 120,
+  },
+  serverSelect: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 28,
+    marginHorizontal: 24,
+    height: 68,
+    borderWidth: 1,
+    borderColor: theme.colors.line,
+    borderRadius: 8,
+    paddingRight: 20,
+    overflow: 'hidden',
+  },
+  serverIconPlaceholder: {
+    width: 68,
+    height: 68,
+    backgroundColor: theme.colors.card,
+    marginRight: 16,
+  },
+  serverSelectText: {
+    flex: 1,
+    fontFamily: theme.fonts.text400,
+    color: theme.colors.heading,
+    fontSize: 18,
   },
 });
