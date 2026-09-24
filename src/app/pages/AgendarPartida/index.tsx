@@ -44,6 +44,7 @@ export default function AgendarPartidaScreen() {
   const [month, setMonth] = useState('');
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');
+  const [description, setDescription] = useState('');
 
   return (
     <Background>
@@ -129,6 +130,22 @@ export default function AgendarPartidaScreen() {
               />
             </View>
           </View>
+        </View>
+
+        <View style={styles.descriptionSection}>
+          <View style={styles.descriptionHeader}>
+            <Text style={[styles.fieldLabel, styles.descriptionLabel]}>Descrição</Text>
+            <Text style={styles.descriptionHint}>Max 100 caracteres</Text>
+          </View>
+          <TextInput
+            style={styles.descriptionInput}
+            value={description}
+            onChangeText={setDescription}
+            maxLength={100}
+            multiline
+            textAlignVertical="top"
+            accessibilityLabel="Descrição"
+          />
         </View>
       </SafeAreaView>
     </Background>
@@ -233,5 +250,33 @@ const styles = StyleSheet.create({
     color: theme.colors.heading,
     fontSize: 18,
     marginHorizontal: 4,
+  },
+  descriptionSection: {
+    paddingHorizontal: 24,
+    marginTop: 28,
+  },
+  descriptionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  descriptionLabel: {
+    marginBottom: 0,
+  },
+  descriptionHint: {
+    fontFamily: theme.fonts.text400,
+    color: theme.colors.highlight,
+    fontSize: 13,
+  },
+  descriptionInput: {
+    minHeight: 95,
+    backgroundColor: theme.colors.card,
+    borderRadius: 8,
+    color: theme.colors.title,
+    fontFamily: theme.fonts.text400,
+    fontSize: 13,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
 });
