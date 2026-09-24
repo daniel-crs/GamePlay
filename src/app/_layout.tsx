@@ -32,6 +32,7 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" options={{ title: 'Lisin' }} />
         <Stack.Screen name="pages/Home" options={{ title: 'Home' }} />
+        <Stack.Screen name="pages/AgendarPartida" options={{ title: 'Agendar partida' }} />
       </Stack>
       <StatusBar style="light" />
     </>
