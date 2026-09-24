@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -11,6 +12,7 @@ import { theme } from '@/constants/theme';
 import profileImg from '../../../../assets/account/profile-img.png';
 
 export default function HomeScreen() {
+  const router = useRouter();
   const [selectedCategoryId, setSelectedCategoryId] = useState<CategoryId | null>(null);
 
   const filteredMatches = useMemo(
@@ -21,7 +23,9 @@ export default function HomeScreen() {
     [selectedCategoryId],
   );
 
-  function handleAdd() {}
+  function handleAdd() {
+    router.push('/pages/AgendarPartida');
+  }
 
   return (
     <Background>
