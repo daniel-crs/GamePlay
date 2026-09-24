@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 
@@ -40,6 +40,10 @@ function ChevronDownIcon() {
 export default function AgendarPartidaScreen() {
   const router = useRouter();
   const [selectedCategoryId, setSelectedCategoryId] = useState<CategoryId | null>(null);
+  const [day, setDay] = useState('');
+  const [month, setMonth] = useState('');
+  const [hour, setHour] = useState('');
+  const [minute, setMinute] = useState('');
 
   return (
     <Background>
@@ -78,6 +82,54 @@ export default function AgendarPartidaScreen() {
           <Text style={styles.serverSelectText}>Selecione um servidor</Text>
           <ChevronDownIcon />
         </Pressable>
+
+        <View style={styles.dateTimeRow}>
+          <View style={styles.dateTimeColumn}>
+            <Text style={styles.fieldLabel}>Dia e mês</Text>
+            <View style={styles.fieldsGroup}>
+              <TextInput
+                style={styles.numericInput}
+                value={day}
+                onChangeText={setDay}
+                keyboardType="number-pad"
+                maxLength={2}
+                accessibilityLabel="Dia"
+              />
+              <Text style={styles.separator}>/</Text>
+              <TextInput
+                style={styles.numericInput}
+                value={month}
+                onChangeText={setMonth}
+                keyboardType="number-pad"
+                maxLength={2}
+                accessibilityLabel="Mês"
+              />
+            </View>
+          </View>
+
+          <View style={styles.dateTimeColumn}>
+            <Text style={styles.fieldLabel}>Hora e minuto</Text>
+            <View style={styles.fieldsGroup}>
+              <TextInput
+                style={styles.numericInput}
+                value={hour}
+                onChangeText={setHour}
+                keyboardType="number-pad"
+                maxLength={2}
+                accessibilityLabel="Hora"
+              />
+              <Text style={styles.separator}>:</Text>
+              <TextInput
+                style={styles.numericInput}
+                value={minute}
+                onChangeText={setMinute}
+                keyboardType="number-pad"
+                maxLength={2}
+                accessibilityLabel="Minuto"
+              />
+            </View>
+          </View>
+        </View>
       </SafeAreaView>
     </Background>
   );
@@ -146,5 +198,40 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.text400,
     color: theme.colors.heading,
     fontSize: 18,
+  },
+  dateTimeRow: {
+    flexDirection: 'row',
+    paddingHorizontal: 24,
+    marginTop: 28,
+    gap: 20,
+  },
+  dateTimeColumn: {
+    flex: 1,
+  },
+  fieldLabel: {
+    fontFamily: theme.fonts.title700,
+    color: theme.colors.heading,
+    fontSize: 18,
+    marginBottom: 12,
+  },
+  fieldsGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  numericInput: {
+    width: 48,
+    height: 48,
+    backgroundColor: theme.colors.card,
+    borderRadius: 8,
+    color: theme.colors.title,
+    fontFamily: theme.fonts.title700,
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  separator: {
+    fontFamily: theme.fonts.title700,
+    color: theme.colors.heading,
+    fontSize: 18,
+    marginHorizontal: 4,
   },
 });
