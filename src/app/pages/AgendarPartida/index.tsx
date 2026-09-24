@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 
@@ -64,88 +64,108 @@ export default function AgendarPartidaScreen() {
           <View style={styles.headerSpacer} />
         </View>
 
-        <Text style={styles.sectionTitle}>Categoria</Text>
-
-        <View style={styles.slider}>
-          <SliderOptions
-            categories={categories}
-            selectedId={selectedCategoryId}
-            onSelect={setSelectedCategoryId}
-          />
-        </View>
-
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Selecione um servidor"
-          style={styles.serverSelect}
+        <ScrollView
+          style={styles.form}
+          contentContainerStyle={styles.formContent}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
         >
-          <View style={styles.serverIconPlaceholder} />
-          <Text style={styles.serverSelectText}>Selecione um servidor</Text>
-          <ChevronDownIcon />
-        </Pressable>
+          <View> 
+            <Text style={styles.sectionTitle}>Categoria</Text>
 
-        <View style={styles.dateTimeRow}>
-          <View style={styles.dateTimeColumn}>
-            <Text style={styles.fieldLabel}>Dia e mês</Text>
-            <View style={styles.fieldsGroup}>
-              <TextInput
-                style={styles.numericInput}
-                value={day}
-                onChangeText={setDay}
-                keyboardType="number-pad"
-                maxLength={2}
-                accessibilityLabel="Dia"
-              />
-              <Text style={styles.separator}>/</Text>
-              <TextInput
-                style={styles.numericInput}
-                value={month}
-                onChangeText={setMonth}
-                keyboardType="number-pad"
-                maxLength={2}
-                accessibilityLabel="Mês"
+            <View style={styles.slider}>
+              <SliderOptions
+                categories={categories}
+                selectedId={selectedCategoryId}
+                onSelect={setSelectedCategoryId}
               />
             </View>
           </View>
 
-          <View style={styles.dateTimeColumn}>
-            <Text style={styles.fieldLabel}>Hora e minuto</Text>
-            <View style={styles.fieldsGroup}>
-              <TextInput
-                style={styles.numericInput}
-                value={hour}
-                onChangeText={setHour}
-                keyboardType="number-pad"
-                maxLength={2}
-                accessibilityLabel="Hora"
-              />
-              <Text style={styles.separator}>:</Text>
-              <TextInput
-                style={styles.numericInput}
-                value={minute}
-                onChangeText={setMinute}
-                keyboardType="number-pad"
-                maxLength={2}
-                accessibilityLabel="Minuto"
-              />
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Selecione um servidor"
+            style={styles.serverSelect}
+          >
+            <View style={styles.serverIconPlaceholder} />
+            <Text style={styles.serverSelectText}>Selecione um servidor</Text>
+            <ChevronDownIcon />
+          </Pressable>
+
+          <View style={styles.dateTimeRow}>
+            <View style={styles.dateTimeColumn}>
+              <Text style={styles.fieldLabel}>Dia e mês</Text>
+              <View style={styles.fieldsGroup}>
+                <TextInput
+                  style={styles.numericInput}
+                  value={day}
+                  onChangeText={setDay}
+                  keyboardType="number-pad"
+                  maxLength={2}
+                  accessibilityLabel="Dia"
+                />
+                <Text style={styles.separator}>/</Text>
+                <TextInput
+                  style={styles.numericInput}
+                  value={month}
+                  onChangeText={setMonth}
+                  keyboardType="number-pad"
+                  maxLength={2}
+                  accessibilityLabel="Mês"
+                />
+              </View>
+            </View>
+
+            <View style={styles.dateTimeColumn}>
+              <Text style={styles.fieldLabel}>Hora e minuto</Text>
+              <View style={styles.fieldsGroup}>
+                <TextInput
+                  style={styles.numericInput}
+                  value={hour}
+                  onChangeText={setHour}
+                  keyboardType="number-pad"
+                  maxLength={2}
+                  accessibilityLabel="Hora"
+                />
+                <Text style={styles.separator}>:</Text>
+                <TextInput
+                  style={styles.numericInput}
+                  value={minute}
+                  onChangeText={setMinute}
+                  keyboardType="number-pad"
+                  maxLength={2}
+                  accessibilityLabel="Minuto"
+                />
+              </View>
             </View>
           </View>
-        </View>
 
-        <View style={styles.descriptionSection}>
-          <View style={styles.descriptionHeader}>
-            <Text style={[styles.fieldLabel, styles.descriptionLabel]}>Descrição</Text>
-            <Text style={styles.descriptionHint}>Max 100 caracteres</Text>
+          <View style={styles.descriptionSection}>
+            <View style={styles.descriptionHeader}>
+              <Text style={[styles.fieldLabel, styles.descriptionLabel]}>Descrição</Text>
+              <Text style={styles.descriptionHint}>Max 100 caracteres</Text>
+            </View>
+            <TextInput
+              style={styles.descriptionInput}
+              value={description}
+              onChangeText={setDescription}
+              maxLength={100}
+              multiline
+              textAlignVertical="top"
+              accessibilityLabel="Descrição"
+            />
           </View>
-          <TextInput
-            style={styles.descriptionInput}
-            value={description}
-            onChangeText={setDescription}
-            maxLength={100}
-            multiline
-            textAlignVertical="top"
-            accessibilityLabel="Descrição"
-          />
+        </ScrollView>
+
+        <View style={styles.footer}>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Agendar"
+            style={({ pressed }) => [styles.agendarButton, pressed && styles.agendarButtonPressed]}
+            onPress={() => {}}
+          >
+            <Text style={styles.agendarButtonText}>Agendar</Text>
+          </Pressable>
         </View>
       </SafeAreaView>
     </Background>
@@ -181,12 +201,18 @@ const styles = StyleSheet.create({
   headerSpacer: {
     width: 40,
   },
+  form: {
+    flex: 1,
+  },
+  formContent: {
+    paddingBottom: 40,
+  },
   sectionTitle: {
     fontFamily: theme.fonts.title700,
     color: theme.colors.heading,
     fontSize: 18,
     paddingHorizontal: 24,
-    marginTop: 32,
+    marginTop: 48,
     marginBottom: 12,
   },
   slider: {
@@ -195,7 +221,7 @@ const styles = StyleSheet.create({
   serverSelect: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 28,
+    marginTop: 44,
     marginHorizontal: 24,
     height: 68,
     borderWidth: 1,
@@ -219,7 +245,7 @@ const styles = StyleSheet.create({
   dateTimeRow: {
     flexDirection: 'row',
     paddingHorizontal: 24,
-    marginTop: 28,
+    marginTop: 44,
     gap: 20,
   },
   dateTimeColumn: {
@@ -253,7 +279,7 @@ const styles = StyleSheet.create({
   },
   descriptionSection: {
     paddingHorizontal: 24,
-    marginTop: 28,
+    marginTop: 44,
   },
   descriptionHeader: {
     flexDirection: 'row',
@@ -278,5 +304,26 @@ const styles = StyleSheet.create({
     fontSize: 13,
     paddingHorizontal: 16,
     paddingVertical: 12,
+  },
+  footer: {
+    paddingHorizontal: 24,
+    paddingTop: 12,
+    paddingBottom: 16,
+  },
+  agendarButton: {
+    width: '100%',
+    height: 56,
+    backgroundColor: theme.colors.primary,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  agendarButtonPressed: {
+    opacity: 0.85,
+  },
+  agendarButtonText: {
+    fontFamily: theme.fonts.title700,
+    color: theme.colors.title,
+    fontSize: 18,
   },
 });
