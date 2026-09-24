@@ -1,12 +1,14 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path } from 'react-native-svg';
 
 import { Background } from '@/components/Background';
+import { ServerSelect } from '@/components/ServerSelect';
 import { SliderOptions } from '@/components/SliderOptions';
 import { categories, CategoryId } from '@/constants/home';
+import { Server, servers } from '@/constants/servers';
 import { theme } from '@/constants/theme';
 
 function BackIcon() {
@@ -40,6 +42,8 @@ function ChevronDownIcon() {
 export default function AgendarPartidaScreen() {
   const router = useRouter();
   const [selectedCategoryId, setSelectedCategoryId] = useState<CategoryId | null>(null);
+  const [isServerSelectOpen, setIsServerSelectOpen] = useState(false);
+  const [selectedServer, setSelectedServer] = useState<Server | null>(null);
   const [day, setDay] = useState('');
   const [month, setMonth] = useState('');
   const [hour, setHour] = useState('');
@@ -84,11 +88,32 @@ export default function AgendarPartidaScreen() {
 
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Selecione um servidor"
+            accessibilityLabel={
+              selectedServer
+                ? `Servidor selecionado: ${selectedServer.title}`
+                : 'Selecione um servidor'
+            }
             style={styles.serverSelect}
+            onPress={() => setIsServerSelectOpen(true)}
           >
-            <View style={styles.serverIconPlaceholder} />
-            <Text style={styles.serverSelectText}>Selecione um servidor</Text>
+            {selectedServer ? (
+              <Image
+                source={selectedServer.icon}
+                style={styles.serverIcon}
+                resizeMode="cover"
+              />
+            ) : (
+              <View style={styles.serverIconPlaceholder} />
+            )}
+            <Text
+              style={[
+                styles.serverSelectText,
+                selectedServer && styles.serverSelectTextSelected,
+              ]}
+              numberOfLines={1}
+            >
+              {selectedServer?.title ?? 'Selecione um servidor'}
+            </Text>
             <ChevronDownIcon />
           </Pressable>
 
@@ -168,6 +193,13 @@ export default function AgendarPartidaScreen() {
           </Pressable>
         </View>
       </SafeAreaView>
+
+      <ServerSelect
+        visible={isServerSelectOpen}
+        servers={servers}
+        onClose={() => setIsServerSelectOpen(false)}
+        onSelect={setSelectedServer}
+      />
     </Background>
   );
 }
@@ -236,11 +268,20 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.card,
     marginRight: 16,
   },
+  serverIcon: {
+    width: 68,
+    height: 68,
+    marginRight: 16,
+  },
   serverSelectText: {
     flex: 1,
     fontFamily: theme.fonts.text400,
     color: theme.colors.heading,
     fontSize: 18,
+  },
+  serverSelectTextSelected: {
+    fontFamily: theme.fonts.title700,
+    color: theme.colors.title,
   },
   dateTimeRow: {
     flexDirection: 'row',
